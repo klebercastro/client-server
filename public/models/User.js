@@ -146,6 +146,6 @@ class User {
         });  
     }
     remove(){
-        HttpRequest.delete(`/users/${this.id}`);
+       return HttpRequest.delete(`/users/${this.id}`);
     }
 }  
