@@ -9,9 +9,9 @@ var client = clients.createJsonClient({
 });
 
 /* GET users listing. */
-router.get("/", function(req, res, next) {
+router.get('/', function(req, res, next) {
   
-  client.get("/users", function (err, request, response, obj) {
+  client.get('/users', function (err, request, response, obj) {
     assert.ifError(err);
     res.json(obj);
     
