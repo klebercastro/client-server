@@ -146,15 +146,6 @@ class User {
         });  
     }
     remove(){
-        let users = User.getUsersStorage();
-
-        users.forEach((userData, index )=> {
-            if(this.id == userData._id) {
-                users.splice(index, 1);
-                console.log(userData, index);
-            }
-
-        });
-        localStorage.setItem("users", JSON.stringify(users));
+        HttpRequest.delete(`/users/${this.id}`);
     }
 }  
