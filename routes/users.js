@@ -4,7 +4,7 @@ var clients = require('restify-clients');
 var router = express.Router();
 
 var client = clients.createJsonClient({
-  url: 'http://192.168.0.105:8080',
+  url: 'http://192.168.0.102:8080',
   version: '~1.0'
 });
 

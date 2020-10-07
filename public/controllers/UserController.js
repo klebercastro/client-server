@@ -52,7 +52,7 @@ class UserController {
     }
     onSubmit(){
         this.formElement.addEventListener('submit', event => {
-            // event.preventDefault();
+            event.preventDefault();
 
             let buttonSubmit = this.formElement.querySelector('[type=submit]');
             buttonSubmit.disable = true;
@@ -149,7 +149,7 @@ class UserController {
     selectAll(){
         // let users = User.getUsersStorage();
 
-        HttpRequest.get('/users').then(data => {
+        User.getUsersStorage('/users').then(data => {
 
             data.users.forEach(dataUser => {
                 let user = new User();
@@ -191,10 +191,12 @@ class UserController {
             if(confirm("Deseja realmente excluir ?")){
                 let user = new User();
                 user.loadFromJSON(JSON.parse(tr.dataset.user));
-                user.remove();
+                user.remove().then(data => {
+                    
+                    tr.remove();
+                    this.updateCount();
+                });    
                 
-                tr.remove();
-                this.updateCount();
             }
         });
         tr.querySelector('.btn-edit').addEventListener('click', event =>{
