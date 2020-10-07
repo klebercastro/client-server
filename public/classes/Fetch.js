@@ -35,7 +35,7 @@ class Fetch {
                 request = new Request(url, {
                     method,
                     body: JSON.stringify(params),
-                    headers: new headers({'Content-Type':'application/json'})
+                    headers: new Headers({'Content-Type':'application/json'})
                 });        
 
         }
