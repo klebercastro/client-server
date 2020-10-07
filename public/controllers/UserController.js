@@ -15,7 +15,7 @@ class UserController {
         });
 
         this.formUpdateElement.addEventListener('submit', event => {
-            event.preventDefault();
+            // event.preventDefault();
             
             let values = this.getValues(this.formUpdateElement);
             let index = this.formUpdateElement.dataset.trIndex;
@@ -34,15 +34,14 @@ class UserController {
                     let user = new User();
                     user.loadFromJSON(result);
 
-                    user.save();
+                    user.save().then(user => {
 
-                    this.getTr(user, tr);
-
-                    this.addEventsTr(tr);
-                    this.updateCount();
-                    this.formUpdateElement.reset(); 
-                    this.showPanelCreate();
-                      
+                        this.getTr(user, tr);
+                        this.addEventsTr(tr);
+                        this.updateCount();
+                        this.formUpdateElement.reset(); 
+                        this.showPanelCreate();
+                    });          
                 },
                 (error)=>{
                     console.error(error);
@@ -53,7 +52,7 @@ class UserController {
     }
     onSubmit(){
         this.formElement.addEventListener('submit', event => {
-            event.preventDefault();
+            // event.preventDefault();
 
             let buttonSubmit = this.formElement.querySelector('[type=submit]');
             buttonSubmit.disable = true;
@@ -66,10 +65,11 @@ class UserController {
                 (content)=>{
                     values.photo = content;
                     
-                    values.save();
-
-                    this.addUserList(values);
-                    
+                    values.save().then(user => {
+                        
+                        this.addUserList(user);
+                    });
+            
                     this.formElement.reset();
 
                 },
@@ -96,7 +96,7 @@ class UserController {
 
         };
         fileReader.onerror = (error) =>{
-            reject(event);
+            reject(error);
         }
         if(file){
             fileReader.readAsDataURL(file);
